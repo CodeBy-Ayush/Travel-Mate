@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels - TravelMate India</title>
+    <link rel="stylesheet" href="/src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        /* Animation for elements appearing on scroll */
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.7s ease-out;
+        }
+        
+        .animate-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md fixed top-0 w-full z-10">
+        <nav class="container mx-auto flex items-center justify-between py-4 px-6">
+            <div class="text-2xl font-bold text-indigo-600">TravelMate India</div>
+            <button id="menu-toggle" class="lg:hidden text-gray-600 hover:text-indigo-600 focus:outline-none">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+            <ul id="menu" class="hidden lg:flex space-x-6 text-gray-700 items-center animate-on-scroll hover:text-indigo-600">
+                <li><a href="index.html" class="hover:text-indigo-600">Home</a></li>
+                <li><a href="destinations.html" class="hover:text-indigo-600">Destinations</a></li>
+                <li><a href="hotels.html" class="text-indigo-600 font-semibold">Hotels</a></li>
+                <li><a href="packages.html" class="hover:text-indigo-600">Travel Packages</a></li>
+                <li><a href="contact.html" class="hover:text-indigo-600">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Heading -->
+    <section class="py-20 bg-gray-100 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 animate-on-scroll">Find Your Perfect Stay in India</h1>
+            <p class="text-lg text-gray-600 animate-on-scroll">Explore hotels that match your budget and style.</p>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="bg-white py-8">
+        <div class="container mx-auto px-6">
+
+            <div class="mb-4 relative animate-on-scroll">
+                <input type="text" id="search-input" class="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring focus:border-blue-500" placeholder="Search Hotels..." oninput="filterHotels()">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Budget Filter -->
+                <div>
+                    <label for="budget" class="block text-gray-700 text-sm font-bold mb-2">Budget:</label>
+                    <select id="budget" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="any">Any</option>
+                        <option value="under2000">Under ₹2000</option>
+                        <option value="2000to5000">₹2000 - ₹5000</option>
+                        <option value="above5000">Above ₹5000</option>
+                    </select>
+                </div>
+
+                <!-- Star Rating Filter -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Star Rating:</label>
+                    <div class="flex flex-col">
+                        <label><input type="checkbox" class="mr-2 star-filter" value="1">⭐ 1 Star</label>
+                        <label><input type="checkbox" class="mr-2 star-filter" value="2">⭐⭐ 2 Stars</label>
+                        <label><input type="checkbox" class="mr-2 star-filter" value="3">⭐⭐⭐ 3 Stars</label>
+                        <label><input type="checkbox" class="mr-2 star-filter" value="4">⭐⭐⭐⭐ 4 Stars</label>
+                        <label><input type="checkbox" class="mr-2 star-filter" value="5">⭐⭐⭐⭐⭐ 5 Stars</label>
+                    </div>
+                </div>
+
+                <!-- Amenities Filter -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Amenities:</label>
+                    <div class="flex flex-col">
+                        <label><input type="checkbox" class="mr-2 amenity-filter" value="wifi">WiFi</label>
+                        <label><input type="checkbox" class="mr-2 amenity-filter" value="pool">Pool</label>
+                        <label><input type="checkbox" class="mr-2 amenity-filter" value="spa">Spa</label>
+                        <label><input type="checkbox" class="mr-2 amenity-filter" value="breakfast">Breakfast Included</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-6">
+                <label for="sort-by" class="block text-gray-700 text-sm font-bold mb-2">Sort By:</label>
+                <select id="sort-by" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="price-low-to-high">Price: Low to High</option>
+                    <option value="price-high-to-low">Price: High to Low</option>
+                    <option value="rating-high-to-low">Rating: High to Low</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels Grid -->
+    <section class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="hotels-grid">
+                <!-- Hotel Cards - Example-->
+                <div class="hotel-card bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 animate-on-scroll" data-name="The Grand Hotel" data-price="3000" data-rating="4" data-amenities="wifi,pool">
+                    <img src="Project/img/hotel1.jpeg" alt="Hotel Image" class="w-full h-48 object-cover">
+
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">The Grand Hotel</h3>
+                        <p class="text-lg font-bold text-green-500">₹3000/night</p>
+                        <div class="flex items-center mb-2">
+                            <span>⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="text-gray-700">Amenities: WiFi, Pool</p>
+                        <a href="#" class="bg-blue-500 text-white rounded px-4 py-2 hover:scale-105 transition-transform duration-300 inline-block mt-4">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="hotel-card bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 animate-on-scroll" data-name="The Cozy Inn" data-price="1500" data-rating="3" data-amenities="wifi,breakfast">
+                    <img src="img/hotel 2.jpg" alt="The Cozy Inn" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">The Cozy Inn</h3>
+                        <p class="text-lg font-bold text-green-500">₹1500/night</p>
+                        <div class="flex items-center mb-2">
+                            <span>⭐⭐⭐</span>
+                        </div>
+                        <p class="text-gray-700">Amenities: WiFi, Breakfast</p>
+                        <a href="#" class="bg-blue-500 text-white rounded px-4 py-2 hover:scale-105 transition-transform duration-300 inline-block mt-4">Book Now</a>
+                    </div>
+                </div>
+                <div class="hotel-card bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 animate-on-scroll" data-name="The Taj hotel" data-price="5000" data-rating="5" data-amenities="wifi,pool,spa,breakfast">
+                    <img src="img/hotel 3.avif" alt="The Taj hotel" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">The Taj hotel</h3>
+                        <p class="text-lg font-bold text-green-500">₹5000/night</p>
+                        <div class="flex items-center mb-2">
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="text-gray-700">Amenities: WiFi, Pool,Spa,Breakfast</p>
+                        <a href="#" class="bg-blue-500 text-white rounded px-4 py-2 hover:scale-105 transition-transform duration-300 inline-block mt-4">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="hotel-card bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 animate-on-scroll" data-name="ITC hotel" data-price="4000" data-rating="4" data-amenities="wifi,pool,breakfast">
+                    <img src="img/hotel 4.webp" alt="ITC hotel" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">ITC hotel</h3>
+                        <p class="text-lg font-bold text-green-500">₹4000/night</p>
+                        <div class="flex items-center mb-2">
+                            <span>⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="text-gray-700">Amenities: WiFi, Pool, Breakfast</p>
+                        <a href="#" class="bg-blue-500 text-white rounded px-4 py-2 hover:scale-105 transition-transform duration-300 inline-block mt-4">Book Now</a>
+                    </div>
+                </div>
+                <!-- More Hotels Here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="py-8 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-2">
+                <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">Previous</a>
+                <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md">1</a>
+                <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">2</a>
+                <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">3</a>
+                <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">Next</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Reused) -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+            <div class="flex space-x-4 mb-4 md:mb-0">
+                <a href="#" class="hover:text-indigo-300 transition duration-300"><i
+                        class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="hover:text-indigo-300 transition duration-300"><i
+                        class="fab fa-instagram fa-lg"></i></a>
+            </div>
+            <div class="flex space-x-4 mb-4 md:mb-0">
+                <a href="index.html" class="hover:text-indigo-300 transition duration-300">Home</a>
+                <a href="destinations.html" class="hover:text-indigo-300 transition duration-300">Destinations</a>
+                <a href="hotels.html" class="hover:text-indigo-300 transition duration-300">Hotels</a>
+                <a href="packages.html" class="hover:text-indigo-300 transition duration-300">Travel Packages</a>
+                <a href="contact.html" class="hover:text-indigo-300 transition duration-300">Contact Us</a>
+            </div>
+            <div>
+                <p>© 2024 TravelMate India</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+        // Animate on Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.animate-on-scroll');
+        hiddenElements.forEach((el) => observer.observe(el));
+        // Hotel Data (Replace with actual data from API)
+        const hotelsData = [{
+            name: "The Grand Hotel",
+            price: 3000,
+            rating: 4,
+            amenities: ["wifi", "pool"],
+            image: "images/hotel1.jpg"
+        }, {
+            name: "The Cozy Inn",
+            price: 1500,
+            rating: 3,
+            amenities: ["wifi", "breakfast"],
+            image: "images/hotel2.jpg"
+        }, {
+            name: "The Taj hotel",
+            price: 5000,
+            rating: 5,
+            amenities: ["wifi", "pool", "spa", "breakfast"],
+            image: "images/theTaj.jpg"
+        }, {
+            name: "ITC hotel",
+            price: 4000,
+            rating: 4,
+            amenities: ["wifi", "pool", "breakfast"],
+            image: "images/itcHotel.jpg"
+        }];
+
+        const renderHotels = (hotels) => {
+            const hotelsGrid = document.getElementById('hotels-grid');
+            hotelsGrid.innerHTML = ""; // Clear existing hotels
+            hotels.forEach(hotel => {
+                const hotelCard = document.createElement('div');
+                hotelCard.className = "hotel-card bg-white rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 animate-on-scroll";
+                hotelCard.dataset.name = hotel.name;
+                hotelCard.dataset.price = hotel.price;
+                hotelCard.dataset.rating = hotel.rating;
+                hotelCard.dataset.amenities = hotel.amenities.join(',');
+                let stars = "";
+                for (let i = 0; i < hotel.rating; i++) {
+                    stars += "⭐";
+                }
+
+                hotelCard.innerHTML = `
+                      <img src="${hotel.image}" alt="${hotel.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                       <h3 class="text-xl font-semibold mb-2">${hotel.name}</h3>
+                      <p class="text-lg font-bold text-green-500">₹${hotel.price}/night</p>
+                   <div class="flex items-center mb-2">
+                      <span>${stars}</span>
+                    </div>
+                    <p class="text-gray-700">Amenities: ${hotel.amenities.join(', ')}</p>
+                        <a href="#" class="bg-blue-500 text-white rounded px-4 py-2 hover:scale-105 transition-transform duration-300 inline-block mt-4">Book Now</a>
+                </div>`;
+                hotelsGrid.appendChild(hotelCard);
+            });
+        };
+        renderHotels(hotelsData);
+
+        //Filter functions
+        const filterHotels = () => {
+            let filteredHotels = hotelsData;
+
+            // Budget Filter
+            const budgetFilter = document.getElementById("budget").value;
+            if (budgetFilter !== "any") {
+                filteredHotels = filteredHotels.filter(hotel => {
+                    if (budgetFilter === "under2000") return hotel.price < 2000;
+                    if (budgetFilter === "2000to5000") return hotel.price >= 2000 && hotel.price <= 5000;
+                    return hotel.price > 5000;
+                });
+            }
+
+            // Star Rating Filter
+            const starFilters = Array.from(document.querySelectorAll('.star-filter:checked')).map(checkbox => parseInt(checkbox.value));
+            if (starFilters.length > 0) {
+                filteredHotels = filteredHotels.filter(hotel => starFilters.includes(hotel.rating));
+            }
+
+            // Amenities Filter
+            const amenityFilters = Array.from(document.querySelectorAll('.amenity-filter:checked')).map(checkbox => checkbox.value);
+            if (amenityFilters.length > 0) {
+                filteredHotels = filteredHotels.filter(hotel => amenityFilters.every(amenity => hotel.amenities.includes(amenity)));
+            }
+
+            renderHotels(filteredHotels);
+
+            const searchInput = document.getElementById('search-input');
+            const filter = searchInput.value.toUpperCase();
+            filterHotels(filteredHotels);
+        }
+        document.getElementById("budget").addEventListener("change", filterHotels);
+        document.querySelectorAll(".star-filter").forEach(checkbox => checkbox.addEventListener("change", filterHotels));
+        document.querySelectorAll(".amenity-filter").forEach(checkbox => checkbox.addEventListener("change", filterHotels));
+
+        // Basic Search Functionality
+        function filterHotelsText() {
+            const input = document.getElementById('search-input');
+            const filter = input.value.toUpperCase();
+            const hotelCards = document.querySelectorAll('.hotel-card');
+            hotelCards.forEach(card => {
+                const hotelName = card.querySelector('h3').textContent.toUpperCase();
+                if (hotelName.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        document.getElementById("search-input").addEventListener("input", filterHotelsText);
+
+        const sortBy = document.getElementById('sort-by');
+        sortBy.addEventListener('change', () => {
+            const sortValue = sortBy.value;
+            let sortedHotels = [...hotelsData]; // Create a copy
+            if (sortValue === 'price-low-to-high') {
+                sortedHotels.sort((a, b) => a.price - b.price);
+            } else if (sortValue === 'price-high-to-low') {
+                sortedHotels.sort((a, b) => b.price - a.price);
+            } else if (sortValue === 'rating-high-to-low') {
+                sortedHotels.sort((a, b) => b.rating - a.rating);
+            }
+            renderHotels(sortedHotels);
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Travel Quiz - TravelMate India</title>
+    <link rel="stylesheet" href="/src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.7s ease-out;
+        }
+        
+        .animate-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md fixed top-0 w-full z-10">
+        <nav class="container mx-auto flex items-center justify-between py-4 px-6">
+            <div class="text-2xl font-bold text-indigo-600">TravelMate India</div>
+            <button id="menu-toggle" class="lg:hidden text-gray-600 hover:text-indigo-600 focus:outline-none">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+            <ul id="menu" class="hidden lg:flex space-x-6 text-gray-700 items-center">
+                <li><a href="index.html" class="hover:text-indigo-600">Home</a></li>
+                <li><a href="destinations.html" class="hover:text-indigo-600">Destinations</a></li>
+                <li><a href="hotels.html" class="hover:text-indigo-600">Hotels</a></li>
+                <li><a href="packages.html" class="hover:text-indigo-600">Travel Packages</a></li>
+                <li><a href="#" class="text-indigo-600 font-semibold">Travel Quiz</a></li>
+                <li><a href="contact.html" class="hover:text-indigo-600">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Heading -->
+    <section class="py-20 bg-gray-100 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 animate-on-scroll">Find Your Perfect Indian Getaway</h1>
+            <p class="text-lg text-gray-600 animate-on-scroll">Answer a few quick questions, and we’ll design the ideal travel plan for you!</p>
+        </div>
+    </section>
+
+    <!-- Quiz Form -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-6">
+            <form id="quizForm" class="max-w-lg mx-auto shadow-md rounded-lg overflow-hidden animate-on-scroll">
+
+                <!-- Progress Bar -->
+                <div class="bg-gray-200 rounded-full h-2 w-full">
+                    <div id="progressBar" class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: 25%"></div>
+                </div>
+
+                <!-- Question 1 -->
+                <div id="question1" class="p-6">
+                    <h2 class="text-xl font-semibold mb-4">What's your budget?</h2>
+                    <select id="budget" class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500">
+                        <option value="under10000">Under ₹10,000</option>
+                        <option value="10000to30000">₹10,000 - ₹30,000</option>
+                        <option value="above30000">Above ₹30,000</option>
+                    </select>
+                </div>
+
+                <!-- Question 2 -->
+                <div id="question2" class="p-6 hidden">
+                    <h2 class="text-xl font-semibold mb-4">Vacation Type:</h2>
+                    <div class="flex flex-col space-y-2">
+                        <label class="inline-flex items-center space-x-2">
+                            <input type="radio" class="form-radio" name="vacationType" value="beaches">
+                            <span>Beaches 🏖️</span>
+                        </label>
+                        <label class="inline-flex items-center space-x-2">
+                            <input type="radio" class="form-radio" name="vacationType" value="mountains">
+                            <span>Mountains ⛰️</span>
+                        </label>
+                        <label class="inline-flex items-center space-x-2">
+                            <input type="radio" class="form-radio" name="vacationType" value="cities">
+                            <span>Cities 🏙️</span>
+                        </label>
+                        <label class="inline-flex items-center space-x-2">
+                            <input type="radio" class="form-radio" name="vacationType" value="heritage">
+                            <span>Heritage 🏛️</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div id="question3" class="p-6 hidden">
+                    <h2 class="text-xl font-semibold mb-4">Travel Dates:</h2>
+                    <input type="date" id="travelDates" class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500">
+                </div>
+
+                <!-- Question 4 -->
+                <div id="question4" class="p-6 hidden">
+                    <h2 class="text-xl font-semibold mb-4">Number of Travelers:</h2>
+                    <select id="travelers" class="border rounded px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4plus">4+</option>
+                    </select>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="p-6 flex justify-between">
+                    <button type="button" id="prevBtn" class="bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-all duration-300" disabled>Previous</button>
+                    <button type="button" id="nextBtn" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-300">Next</button>
+                </div>
+
+                <!-- Submit Button -->
+                <div id="submitBtnContainer" class="p-6 hidden">
+                    <button type="submit" id="submitBtn" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-300">Get
+                        My Travel Plan</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="resultsSection" class="py-12 bg-gray-100 hidden">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-2xl font-semibold mb-4">Your Personalized Travel Plan:</h2>
+            <p id="resultsMessage" class="text-lg text-gray-700 mb-6"></p>
+            <a href="packages.html" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-300">View
+                Travel Packages</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+            <div class="flex space-x-4 mb-4 md:mb-0">
+                <a href="#" class="hover:text-indigo-300 transition duration-300"><i
+                        class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="hover:text-indigo-300 transition duration-300"><i
+                        class="fab fa-instagram fa-lg"></i></a>
+            </div>
+            <div class="flex space-x-4 mb-4 md:mb-0">
+                <a href="index.html" class="hover:text-indigo-300 transition duration-300">Home</a>
+                <a href="destinations.html" class="hover:text-indigo-300 transition duration-300">Destinations</a>
+                <a href="hotels.html" class="hover:text-indigo-300 transition duration-300">Hotels</a>
+                <a href="packages.html" class="hover:text-indigo-300 transition duration-300">Travel Packages</a>
+                <a href="contact.html" class="hover:text-indigo-300 transition duration-300">Contact Us</a>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Subscribe to Our Newsletter</h3>
+                <div class="flex">
+                    <input type="email" placeholder="Your Email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Subscribe</button>
+                </div>
+            </div>
+            <div>
+                <p>© 2024 TravelMate India</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // JavaScript for Travel Quiz
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Animate on Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.animate-on-scroll');
+        hiddenElements.forEach((el) => observer.observe(el));
+        const quizForm = document.getElementById('quizForm');
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnContainer = document.getElementById('submitBtnContainer');
+        const resultsSection = document.getElementById('resultsSection');
+        const resultsMessage = document.getElementById('resultsMessage');
+        let currentQuestion = 1;
+
+        function showQuestion(questionNumber) {
+            // Hide all questions
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`question${i}`).classList.add('hidden');
+                document.getElementById(`question${i}`).classList.remove('opacity-100');
+
+            }
+            console.log("showing question")
+                // Show the current question
+            const currentQuestionElement = document.getElementById(`question${questionNumber}`);
+            currentQuestionElement.classList.remove('hidden');
+            setTimeout(() => {
+                currentQuestionElement.classList.add('opacity-100');
+            }, 50);
+            // Update progress bar
+            updateProgressBar();
+
+            // Enable/disable buttons
+            prevBtn.disabled = questionNumber === 1;
+            nextBtn.disabled = questionNumber === 4;
+
+            // Show/hide submit button
+            if (questionNumber === 4) {
+                nextBtn.classList.add('hidden');
+                submitBtnContainer.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtnContainer.classList.add('hidden');
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = (currentQuestion - 1) * 25;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Next button click
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        });
+
+        // Previous button click
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            currentQuestion--;
+            showQuestion(currentQuestion);
+        });
+
+        // Submit button click
+        quizForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let message = "";
+            resultsSection.classList.remove('hidden');
+            const budget = document.getElementById('budget').value;
+            const vacationType = document.querySelector('input[name="vacationType"]:checked').value;
+
+            switch (vacationType) {
+                case 'beaches':
+                    message = "Based on your choices, we recommend a 5-day beach getaway in Goa.";
+                    break;
+                case 'mountains':
+                    message = "Based on your choices, we recommend a 7-day trekking adventure in Himachal Pradesh.";
+                    break;
+                case 'cities':
+                    message = "Based on your choices, we recommend a 3-day cultural tour of Delhi and Agra."
+                    break;
+                case 'heritage':
+                    message = "Based on your choices, we recommend a 7-day exploration of Rajasthan's historical sites"
+                    break
+                default:
+                    message = "No results found";
+            }
+            resultsMessage.textContent = message
+            showResults(message);
+        })
+
+        function showResults(message) {
+
+            let resultsSection = document.getElementById("resultsSection");
+            let resultsMessage = document.getElementById("resultsMessage");
+
+            resultsSection.classList.remove('hidden');
+            resultsMessage.textContent = message;
+        }
+
+        // Start the quiz
+        showQuestion(currentQuestion);
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

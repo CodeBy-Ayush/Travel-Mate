@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMate India</title>
+    <link rel="stylesheet" href="/src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.7s ease-out;
+        }
+        
+        .animate-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md fixed top-0 w-full z-10">
+        <nav class="container mx-auto flex items-center justify-between py-4 px-6">
+            <div class="text-2xl font-bold text-indigo-600">TravelMate India</div>
+            <button id="menu-toggle" class="lg:hidden text-gray-600 hover:text-indigo-600 focus:outline-none">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+            <ul id="menu" class="hidden lg:flex space-x-6 text-gray-700 items-center animate-on-scroll hover:text-indigo-600">
+                <li><a href="index.html" class="hover:text-indigo-600">Home</a></li>
+                <li><a href="destinations.html" class="hover:text-indigo-600">Destinations</a></li>
+                <li><a href="hotels.html" class="hover:text-indigo-600">Hotels</a></li>
+                <li><a href="packages.html" class="hover:text-indigo-600">Travel Packages</a></li>
+                <li><a href="contact.html" class="hover:text-indigo-600">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('img/TajMahal.jpeg');">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="text-center text-white relative z-10">
+            <h1 class="text-5xl font-bold mb-4 animate-on-scroll">Explore Incredible India</h1>
+            <p class="text-xl mb-8 animate-on-scroll delay-200">Find your perfect destination, hotel, and package.</p>
+            <div class="relative mx-auto w-96 animate-on-scroll delay-300">
+                <input type="text" id="search-input" class="w-full px-4 py-2 rounded-full focus:outline-none focus:shadow-outline" placeholder="Search Destinations..." oninput="filterDestinations()">
+                <div id="search-results" class="absolute left-0 mt-2 w-full bg-white rounded-md shadow-lg z-20 hidden">
+                </div>
+            </div>
+            <a href="#featured-destinations" class="inline-block bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-3 px-6 rounded-full mt-8 transition duration-300 animate-on-scroll delay-400">Explore
+                Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section id="featured-destinations" class="py-16 bg-gray-100">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">Featured Destinations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-6">
+                <!-- Goa -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden animate-on-scroll">
+                    <img src="img\gao.jpg" alt="Goa" class="w-full h-48 object-cover transform transition duration-300 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Goa</h3>
+                        <p class="text-gray-700">Beaches, nightlife, and Portuguese heritage.</p>
+                    </div>
+                </div>
+
+                <!-- Manali -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden animate-on-scroll">
+                    <img src="img\manali.jpg" alt="Manali" class="w-full h-48 object-cover transform transition duration-300 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Manali</h3>
+                        <p class="text-gray-700">Snow-capped mountains and adventure activities.</p>
+                    </div>
+                </div>
+
+                <!-- Jaipur -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden animate-on-scroll">
+                    <img src="img\jaipur.jpg" alt="Jaipur" class="w-full h-48 object-cover transform transition duration-300 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">Jaipur</h3>
+                        <p class="text-gray-700">Pink city with majestic forts and palaces.</p>
+                    </div>
+                </div>
+
+                <!-- Kerala -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden animate-on-scroll">
+                    <img src="img\kerala.jpeg" alt=" Kerala " class="w-full h-48 object-cover transform transition duration-300 hover:scale-105 ">
+                    <div class="p-4 ">
+                        <h3 class="text-xl font-semibold mb-2 ">Kerala</h3>
+                        <p class="text-gray-700 ">Backwaters, beaches, and lush greenery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-12 bg-white ">
+        <div class="container mx-auto ">
+            <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll ">Why Choose Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 animate-on-scroll ">
+                <!-- Easy Booking -->
+                <div class="text-center p-4 hover:bg-gray-100 transition duration-300 ">
+                    <i class="fas fa-plane-departure fa-3x text-indigo-600 mb-4 "></i>
+                    <h3 class="text-xl font-semibold mb-2 ">Easy Booking</h3>
+                    <p class="text-gray-700 ">Seamless booking experience with secure payments.</p>
+                </div>
+
+                <!-- Budget-Friendly -->
+                <div class="text-center p-4 hover:bg-gray-100 transition duration-300 ">
+                    <i class="fas fa-wallet fa-3x text-green-600 mb-4 "></i>
+                    <h3 class="text-xl font-semibold mb-2 ">Budget-Friendly Hotels</h3>
+                    <p class="text-gray-700 ">Wide range of hotels to fit every budget.</p>
+                </div>
+
+                <!-- Diverse Destinations -->
+                <div class="text-center p-4 hover:bg-gray-100 transition duration-300 ">
+                    <i class="fas fa-globe-asia fa-3x text-blue-600 mb-4 "></i>
+                    <h3 class="text-xl font-semibold mb-2 ">Diverse Destinations</h3>
+                    <p class="text-gray-700 ">Explore a variety of destinations across India.</p>
+                </div>
+
+                <!-- 24/7 Support -->
+                <div class="text-center p-4 hover:bg-gray-100 transition duration-300 ">
+                    <i class="fas fa-headset fa-3x text-yellow-600 mb-4 "></i>
+                    <h3 class="text-xl font-semibold mb-2 ">24/7 Support</h3>
+                    <p class="text-gray-700 ">Dedicated support team available around the clock.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-indigo-100 text-center animate-on-scroll ">
+        <div class="container mx-auto ">
+            <h2 class="text-3xl font-bold mb-8 ">Ready to explore India? Book your dream vacation now!</h2>
+            <a href="destinations.html " class="inline-block bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-3 px-6 rounded-full transition duration-300 ">Explore
+                Destinations</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 ">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 ">
+            <div class="flex space-x-4 mb-4 md:mb-0 ">
+                <a href="# " class="hover:text-indigo-300 transition duration-300 "><i
+                        class="fab fa-facebook-f fa-lg "></i></a>
+                <a href="# " class="hover:text-indigo-300 transition duration-300 "><i
+                        class="fab fa-instagram fa-lg "></i></a>
+            </div>
+            <div class="flex space-x-4 mb-4 md:mb-0 ">
+                <a href="index.html " class="hover:text-indigo-300 transition duration-300 ">Home</a>
+                <a href="destinations.html " class="hover:text-indigo-300 transition duration-300 ">Destinations</a>
+                <a href="hotels.html " class="hover:text-indigo-300 transition duration-300 ">Hotels</a>
+                <a href="packages.html " class="hover:text-indigo-300 transition duration-300 ">Travel Packages</a>
+                <a href="contact.html " class="hover:text-indigo-300 transition duration-300 ">Contact Us</a>
+            </div>
+            <div>
+                <p>© 2024 TravelMate India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Animate on Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.animate-on-scroll');
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // Basic Search Functionality
+        function filterDestinations() {
+            const input = document.getElementById('search-input');
+            const filter = input.value.toUpperCase();
+            const searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = ''; // Clear previous results
+            searchResults.classList.add('hidden');
+
+            const destinations = [{
+                    name: "Goa ",
+                    link: "destinations.html "
+                }, {
+                    name: "Manali ",
+                    link: "destinations.html "
+                }, {
+                    name: "Jaipur ",
+                    link: "destinations.html "
+                }, {
+                    name: "Kerala ",
+                    link: "destinations.html "
+                },
+                // Add more destinations
+            ];
+
+            destinations.forEach(destination => {
+                if (destination.name.toUpperCase().includes(filter)) {
+                    const a = document.createElement('a');
+                    a.href = destination.link;
+                    a.textContent = destination.name;
+                    a.classList.add('block', 'px-4', 'py-2', 'text-gray-800', 'hover:bg-gray-200');
+                    searchResults.appendChild(a);
+                    searchResults.classList.remove('hidden');
+                }
+            });
+        }
+    </script>
+    <script src="js/script.js "></script>
+</body>
+
+</html>
